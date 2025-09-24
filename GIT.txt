@@ -1,0 +1,16 @@
+GIT
+
+.git //esta oculto (punto delante)
+git add. //Selecciona todo para el stage
+git commit -m "comentario identificativo" //Sirve para "hacer la foto"
+
+//Git crea de base una rama llamada master (local)
+//También crea un repositorio en GitHub llamado main (nube) 
+//En realidad actualizamos e insertamos los commits en una rama paralela llamada develop
+//El main es intocable
+
+git push //pasa las "fotos" de master en local al main
+git pull //todo lo que hay en el main se descarga al master
+//Es preferible abrir otra rama paralela al master para hacer los commits sin tocar la principal
+//commit se puede convertir en release a la hora de finalizar y publicar
+
