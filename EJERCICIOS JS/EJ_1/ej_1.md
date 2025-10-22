@@ -1,5 +1,5 @@
 # Ejercicio 1 
-## Sara Pérez, 2ºDAM
+## Sara Pérez, 2º DAM
 
 ## Declaración de variables
 
@@ -10,7 +10,7 @@ console.log(nombre);
 
 // 2. Declara una constante PI con el valor 3.1416. Intenta reasignarla y observa el error.
 const PI = 3.1416;
-// PI = 3.14; // ❌ Error: Assignment to constant variable
+PI = 3.14; //error
 console.log(PI);
 
 // 3. Declara una variable edad sin asignarle valor. Luego asígnale un número y muestra el resultado.

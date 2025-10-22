@@ -40,3 +40,5 @@ const noSuma = function (a, ...rest) {
 }
 console.log(noSuma(1,2,3,4));
 
+let pi= 3.1416;
+console.log(typeof pi + ": "+ pi);
