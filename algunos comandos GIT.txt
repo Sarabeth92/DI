@@ -1,4 +1,4 @@
-GIT
+algunos comandos GIT
 
 .git //esta oculto (punto delante)
 git add. //Selecciona todo para el stage
