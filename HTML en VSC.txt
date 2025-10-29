@@ -1,0 +1,22 @@
+HTML en VSC
+//Atajos EMMET: (mola mucho)
+
+!+tab //rellena cosas (chachi)
+
+ul>li*3 +tab
+
+div+div+ul>(li>a)*10 +enter //te crea la lista y las repeticiones
+
+div{texto random $}*10 +tab //con el dólar numera y te repite la frase
+div{texto random}*10 +tab //Igual pero sin numerar
+
+div +tab/enter +lorem +tab/enter //Inserta texto de relleno
+div +tab/enter +lorem10 +tab/enter //el numero indica el nº de palabras del texto de relleno
+
+alt+z //te ajusta el texto a la pantalla (megautil)
+
+div.container +tab //te crea la clase container
+div.container+li.nocolor.border +tab
+div.container+li.nocolor.border#primary +tab
+
+
