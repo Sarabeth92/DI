@@ -1,0 +1,21 @@
+# Ignorar dependencias
+node_modules/
+dist/
+build/
+.vite/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+.env.local
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Configuración del editor
+.vscode/
+.idea/
