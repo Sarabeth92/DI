@@ -1,0 +1,10 @@
+DI proyecto guitars
+
+*en fichero de backend:
+-en la carpeta raíz, no en src, hacemos archivo compose.yml, para instalar mongo en Docker y copiamos el código de la imagen de mongo
+-hacemos un arvhivo ".env" con 
+	MONGO_DB_NAME=guitarsdb (por ejemplo)
+	PASSWORD=loquesea
+esto edita la variable de entorno del nombre de la imagen de mongo
+-añadimos el .env en el gitignore para que mantenga la privacidad
+
