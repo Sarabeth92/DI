@@ -182,6 +182,11 @@
 
             return normalizados;
 
+            // 5) MODIFICACION: Ordenar por titulo asc
+            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+            const ordenados = posts.sort((a, b) => a.title.localeCompare(b.title));
+            return ordenados;
+
         } catch (error) {
             console.error("Error procesando comentarios:", error);
             return [];

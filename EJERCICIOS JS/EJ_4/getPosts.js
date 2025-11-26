@@ -13,8 +13,11 @@ export async function getUppercaseTitlesByUser(userId = 1) {
 
         // 4) Transformar los títulos a MAYÚSCULAS
         const titulosMayus = filtrados.map(post => post.title.toUpperCase());
-
         return titulosMayus;
+
+        // 5) MODIFICACION: Ordenar por titulo asc
+        const ordenados = posts.sort((a, b) => a.title.localeCompare(b.title));
+        return ordenados;
 
     } catch (error) {
         console.error("Error obteniendo los posts:", error);
