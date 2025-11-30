@@ -1,0 +1,27 @@
+PROYECTO REACT
+
+*DIRECTORIOS PRINCIPALES:
+	- carpeta src>
+		-carpeta data
+		-carpeta components
+		-carpeta hooks
+		-app.jsx
+		-index.css (al instalar tailwind añadimos:)
+		-output.css
+	-code.html
+	-colors.js
+	-students.js
+	-README.md
+
+*actualizamos repositorio e instalamos tailwind en el proyecto, en este paso se genera el output
+*importamos en app.jsx:
+	export const App= () => {
+   	 <>
+        	<html lang="en"> //todo el html
+    	</>
+	}
+*impoertamos en index.jsx:
+	@import 'tailwindcss';
+	@import 'tailwindcss/base';
+	@import 'tailwindcss/components';
+	@import 'tailwindcss/utilities';
