@@ -9,7 +9,7 @@ export const App = () => {
   const [alumnos, setAlumnos] = useState(
     initialStudents.map((student) => ({
       ...student,
-      status: 'absent', // valor por defecto
+      status: 'absent', 
     }))
   );
 

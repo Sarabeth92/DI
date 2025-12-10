@@ -1,0 +1,223 @@
+EDIT DEFENSA
+___________________________________________________________________________________________________________
+
+**GENERAL**
+0️⃣ Base que necesitas tener en App.jsx
+
+Para que cualquiera de las 3 opciones funcione, lo ideal es que tu App.jsx tenga:
+
+estado con los alumnos
+
+status por alumno
+
+función para cambiar el status
+
+Algo así:
+
+import { useState } from 'react';
+import { Students } from './components/Students';
+import { initialStudents } from './data/students';
+import { Contador } from './components/Contador';
+import { Header } from './components/Header';
+import { Buscador } from './components/Buscador';
+
+export const App = () => {
+  const [alumnos, setAlumnos] = useState(
+    initialStudents.map((student) => ({
+      ...student,
+      status: 'absent', // estado inicial
+    }))
+  );
+
+  const handleChangeStatus = (id, newStatus) => {
+    setAlumnos((prev) =>
+      prev.map((student) =>
+        student.id === id ? { ...student, status: newStatus } : student
+      )
+    );
+  };
+
+  return (
+    <>
+      <Header />
+      <main className="bg-gray-100 p-2 m-2">
+        <Contador students={alumnos} />
+        <Buscador />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 px-2">
+          {alumnos.map((student) => (
+            <Students
+              key={student.id}
+              student={student}
+              onChangeStatus={(newStatus) =>
+                handleChangeStatus(student.id, newStatus)
+              }
+            />
+          ))}
+        </div>
+      </main>
+    </>
+  );
+};
+
+**BARRA BUSQUEDA**
+🅰️ Opción 1 – Hacer funcional la barra de búsqueda
+Paso 1: añadir search y filtrar en App.jsx
+
+Debajo del useState de alumnos:
+
+const [search, setSearch] = useState('');
+
+
+Crear una lista filtrada:
+
+const filteredStudents = alumnos.filter((student) =>
+  student.name.toLowerCase().includes(search.toLowerCase().trim())
+);
+
+
+Y en el JSX:
+
+pasar props al Buscador
+
+usar filteredStudents en vez de alumnos al pintar:
+
+<Contador students={alumnos} />
+
+<Buscador search={search} onSearchChange={setSearch} />
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-3 px-2">
+  {filteredStudents.map((student) => (
+    <Students
+      key={student.id}
+      student={student}
+      onChangeStatus={(newStatus) =>
+        handleChangeStatus(student.id, newStatus)
+      }
+    />
+  ))}
+</div>
+
+Paso 2: Buscador.jsx controlado
+export const Buscador = ({ search, onSearchChange }) => {
+  return (
+    <div className="flex justify-end mr-4 mx-4 p-2">
+      <div className="border-2 border-gray-200 rounded-xl bg-white">
+        <label className="flex flex-row gap-2 items-center px-2 py-1">
+          <span className="material-symbols-outlined text-gray-700 text-base">
+            search
+          </span>
+          <input
+            className="text-xs text-gray-700 outline-none"
+            placeholder="Search student name..."
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+          />
+        </label>
+      </div>
+    </div>
+  );
+};
+
+**AÑADIR ESTADO**
+🅱️ Opción 2 – Añadir un nuevo estado (por ejemplo sick / “Enfermo”)
+Paso 1: contador nuevo en Contador.jsx
+export const Contador = ({ students }) => {
+  const total = students.length;
+  const present = students.filter((s) => s.status === 'present').length;
+  const absent = students.filter((s) => s.status === 'absent').length;
+  const late = students.filter((s) => s.status === 'late').length;
+  const sick = students.filter((s) => s.status === 'sick').length; // NUEVO
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
+      {/* Total, Present, Absent, Late... */}
+      <div className="rounded-2xl shadow-sm flex flex-col p-3 bg-white">
+        <p className="text-sm font-medium text-gray-500 mt-1">Sick</p>
+        <p className="text-2xl font-bold text-purple-500 mt-1">{sick}</p>
+      </div>
+    </div>
+  );
+};
+
+
+(Ajustas grid-cols-5 al número de tarjetas que tengas.)
+
+Paso 2: badge y botón Sick en Students.jsx
+
+En la lógica de colores del badge, añade:
+
+if (status === 'sick') {
+  return 'bg-purple-100 text-purple-600';
+}
+
+
+Y añade el botón:
+
+<div className="flex justify-between gap-3 m-2">
+  {/* Present, Absent, Late... */}
+  <button
+    className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 hover:bg-purple-600 hover:text-white"
+    onClick={() => onChangeStatus('sick')}
+  >
+    Sick
+  </button>
+</div>
+
+**AÑADIR ESTUDIANTE**
+🅲️ Opción 3 – Botón person para añadir un alumno nuevo
+
+Esta encaja perfecto con el punto 4. Agregar nuevos estudiantes (opcional).
+
+Paso 1: función handleAddStudent en App.jsx
+const handleAddStudent = () => {
+  const name = window.prompt('Nombre del nuevo estudiante:');
+  if (!name) return;
+
+  setAlumnos((prev) => {
+    const nextId =
+      prev.length > 0 ? Math.max(...prev.map((s) => s.id)) + 1 : 1;
+
+    return [
+      ...prev,
+      {
+        id: nextId,
+        name,
+        image: 'https://via.placeholder.com/64', // o la que uses tú
+        status: 'absent',
+        attendance: [],
+      },
+    ];
+  });
+};
+
+
+Y luego, en el JSX:
+
+<Header onAddStudent={handleAddStudent} />
+
+Paso 2: usar la prop en Header.jsx
+export const Header = ({ onAddStudent }) => {
+  return (
+    <header className="w-full bg-white shadow-sm p-3">
+      <div className="flex justify-between">
+        <div className="flex items-center gap-3 ml-2">
+          <span className="material-symbols-outlined text-blue-600 text-3xl">
+            school
+          </span>
+          <h1 className="font-bold text-xl text-gray-800">
+            Attendance Dashboard
+          </h1>
+        </div>
+
+        <button
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+          onClick={onAddStudent}
+        >
+          <span className="material-symbols-outlined text-gray-700 text-2xl">
+            person
+          </span>
+        </button>
+      </div>
+    </header>
+  );
+};

@@ -1,7 +1,7 @@
 export const Students = ({ student, onChangeStatus }) => {
   const { id, name, image, status } = student;
 
-  // Pastilla de estado 
+  // Pastilla de estado
   // (no fui capaz a que cambiara de color solo con tailwind y tuve que meterselo forzado)
   const getBadgeStyle = () => {
     if (status === 'present') {
@@ -12,6 +12,9 @@ export const Students = ({ student, onChangeStatus }) => {
     }
     if (status === 'late') {
       return { backgroundColor: '#fef3c7', color: '#d97706' }; // amarillo
+    }
+    if (status === 'sick') {
+      return { backgroundColor: '#e9d5ff', color: '#7c3aed' }; // morado;
     }
     return { backgroundColor: '#e5e7eb', color: '#4b5563' }; // gris
   };
@@ -53,7 +56,7 @@ export const Students = ({ student, onChangeStatus }) => {
 
       <div className="flex justify-between gap-3 m-2">
         <button
-          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition"
+          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-green-500 hover:text-white transition"
           style={getActiveButtonStyle('present')}
           onClick={() => onChangeStatus('present')}
         >
@@ -61,7 +64,7 @@ export const Students = ({ student, onChangeStatus }) => {
         </button>
 
         <button
-          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition"
+          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-red-500 hover:text-white transition"
           style={getActiveButtonStyle('absent')}
           onClick={() => onChangeStatus('absent')}
         >
@@ -69,11 +72,20 @@ export const Students = ({ student, onChangeStatus }) => {
         </button>
 
         <button
-          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition"
+          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200 text-gray-700 hover:bg-yellow-400 hover:text-white transition"
           style={getActiveButtonStyle('late')}
           onClick={() => onChangeStatus('late')}
         >
           Late
+        </button>
+
+        <button
+          className="flex-1 px-3 py-2 rounded-xl text-xs font-medium bg-gray-200  
+             text-gray-700 hover:bg-purple-600 hover:text-white transition"
+          style={getActiveButtonStyle('sick')}
+          onClick={() => onChangeStatus('sick')}
+        >
+          Sick
         </button>
       </div>
     </div>
